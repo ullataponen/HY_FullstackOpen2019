@@ -1,3 +1,5 @@
+# This is the app for kurssitiedot task. It covers tasks 1.1 - 1.5 of the course.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
