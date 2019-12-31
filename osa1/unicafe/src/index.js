@@ -9,9 +9,6 @@ const Button = props => (
 
 const Statistic = props => (
 	<>
-		{/* <p>
-			{props.text} {props.value}
-		</p> */}
 		<table>
 			<tbody>
 				<tr>
