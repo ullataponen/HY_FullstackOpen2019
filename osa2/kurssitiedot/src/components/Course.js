@@ -1,9 +1,9 @@
 import React from "react";
 
-const Header = props => {
+const Header = ({ name }) => {
 	return (
 		<>
-			<h1> {props.name} </h1>
+			<h2> {name} </h2>
 		</>
 	);
 };
@@ -17,14 +17,7 @@ const Part = ({ parts }) => (
 const Content = ({ courseparts }) => {
 	const parts = () =>
 		courseparts.map(part => <Part key={part.id} parts={part} />);
-	return (
-		<>
-			{parts()}
-			{/* <Part parts={course[0]} />
-			<Part parts={course[1]} />
-			<Part parts={course[2]} /> */}
-		</>
-	);
+	return <>{parts()}</>;
 };
 
 const Total = ({ courseparts }) => {
