@@ -8,7 +8,7 @@ export default function Addperson({ persons, savePerson }) {
 		const checkIfExists = persons.filter(
 			person => person.name === newEntry.name
 		);
-		console.log(checkIfExists.length);
+		// console.log(checkIfExists.length);
 
 		if (checkIfExists.length !== 0) {
 			alert(`${newEntry.name} is already in the phonebook.`);
