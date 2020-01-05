@@ -10,6 +10,7 @@ const App = () => {
 		{ name: "Dan Abramov", number: "12-43-234345" },
 		{ name: "Mary Poppendieck", number: "39-23-6423122" }
 	]);
+	const [keyword, setKeyword] = useState("");
 	// const [newName, setNewName] = useState("");
 	// const [newNumber, setNewNumber] = useState("");
 	// const [newEntry, setNewEntry] = useState({ name: "", number: "" });
@@ -33,6 +34,11 @@ const App = () => {
 	// 	// console.log(event.target.value);
 	// 	setNewEntry({ ...newEntry, [event.target.name]: event.target.value });
 	// };
+
+	const inputChanged = event => {
+		setKeyword(event.target.value);
+	};
+
 	const savePerson = newEntry => {
 		setPersons(persons.concat(newEntry));
 	};
@@ -40,31 +46,10 @@ const App = () => {
 	return (
 		<div>
 			<h1>Phonebook</h1>
+			Filter contacts with: <input value={keyword} onChange={inputChanged} />
 			<Addperson persons={persons} savePerson={savePerson} />
-			{/* <h2>Add new entry</h2>
-			<form onSubmit={addPerson}>
-				<div>
-					name:{" "}
-					<input
-						name="name"
-						value={newEntry.name}
-						onChange={handleInputChange}
-					/>
-				</div>
-				<div>
-					number:{" "}
-					<input
-						name="number"
-						value={newEntry.number}
-						onChange={handleInputChange}
-					/>
-				</div>
-				<div>
-					<button type="submit">add</button>
-				</div>
-			</form> */}
 			<h2>Numbers</h2>
-			<Personlist persons={persons} />
+			<Personlist persons={persons} keyword={keyword} />
 		</div>
 	);
 };
