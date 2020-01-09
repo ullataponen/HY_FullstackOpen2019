@@ -1,9 +1,14 @@
 import React from "react";
 
 const Person = props => {
+	const delPerson = id => {
+		props.deletePerson(id);
+	};
+
 	return (
 		<li>
-			{props.name} {props.number}
+			{props.person.name} {props.person.number}{" "}
+			<button onClick={() => delPerson(props.person.id)}>delete</button>
 		</li>
 	);
 };

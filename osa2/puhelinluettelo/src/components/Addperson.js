@@ -1,25 +1,49 @@
 import React, { useState } from "react";
+import personService from "./../services/persons";
 
-export default function Addperson({ persons, savePerson }) {
+export default function Addperson({ persons, savePerson, setPersons }) {
 	const [newEntry, setNewEntry] = useState({ name: "", number: "" });
 
 	const addPerson = event => {
 		event.preventDefault();
-		const checkIfExists = persons.filter(
-			person => person.name === newEntry.name
-		);
-		// console.log(checkIfExists.length);
+		// const person = persons.find(p =>p.name === newEntry.name)
+		// const checkIfExists = persons.filter(
+		// 	person => person.name === newEntry.name
+		// );
+		const personToUpdate = persons.find(p => p.name === newEntry.name);
+		console.log(personToUpdate);
+		if (persons.find(p => p.name === newEntry.name)) {
+			const id = personToUpdate.id;
+			if (
+				window.confirm(
+					`${newEntry.name} is already added to phonebook, replace the old number with new one?`
+				)
+			) {
+				personService.update(id, newEntry).then(returnedPerson => {
+					setPersons(
+						persons.map(person => (person.id !== id ? person : returnedPerson))
+					);
+				});
+			}
 
-		if (checkIfExists.length !== 0) {
-			alert(`${newEntry.name} is already in the phonebook.`);
+			// if (checkIfExists.length !== 0) {
+			// alert(`${newEntry.name} is already in the phonebook.`);
 		} else {
-			savePerson(newEntry);
+			personService.create(newEntry).then(returnedPerson => {
+				savePerson(returnedPerson);
+			});
+			// personService.create(newEntry).then(response => {
+			// 	savePerson(newEntry);
 		}
+		// axios.post("http://localhost:3001/persons", newEntry).then(response => {
+		// 	savePerson(newEntry);
+
+		// savePerson(newEntry);
+
 		setNewEntry({ name: "", number: "" });
 	};
 
 	const handleInputChange = event => {
-		// console.log(event.target.value);
 		setNewEntry({ ...newEntry, [event.target.name]: event.target.value });
 	};
 
