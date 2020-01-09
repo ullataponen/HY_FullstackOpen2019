@@ -19,11 +19,21 @@ export default function Addperson({ persons, savePerson, setPersons }) {
 					`${newEntry.name} is already added to phonebook, replace the old number with new one?`
 				)
 			) {
-				personService.update(id, newEntry).then(returnedPerson => {
-					setPersons(
-						persons.map(person => (person.id !== id ? person : returnedPerson))
-					);
-				});
+				personService
+					.update(id, newEntry)
+					.then(returnedPerson => {
+						setPersons(
+							persons.map(person =>
+								person.id !== id ? person : returnedPerson
+							)
+						);
+					})
+					.catch(error => {
+						alert(
+							`The person ${personToUpdate.name} was already deleted from server`
+						);
+					});
+				setPersons(persons.filter(p => p.id !== id));
 			}
 
 			// if (checkIfExists.length !== 0) {

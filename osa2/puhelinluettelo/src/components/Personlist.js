@@ -6,11 +6,16 @@ const Personlist = ({ persons, keyword, setPersons }) => {
 	const deletePerson = id => {
 		const person = persons.find(p => p.id === id);
 		if (window.confirm(`Are you sure to delete ${person.name}?`)) {
-			personService.delete(id).then(response => {
-				personService.getAll().then(returnedPersons => {
-					setPersons(returnedPersons);
-				});
-			});
+			personService
+				.del(id)
+				.then(response => {
+					personService.getAll().then(returnedPersons => {
+						setPersons(returnedPersons);
+					});
+				})
+				.catch(
+					alert(`The person ${person.name} was already deleted from server`)
+				);
 		}
 	};
 
