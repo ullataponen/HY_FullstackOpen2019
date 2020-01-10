@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import personService from "./../services/persons";
 
-export default function Addperson({ persons, savePerson, setPersons }) {
+export default function Addperson({
+	persons,
+	savePerson,
+	setPersons,
+	setMessage
+}) {
 	const [newEntry, setNewEntry] = useState({ name: "", number: "" });
 
 	const addPerson = event => {
 		event.preventDefault();
-		// const person = persons.find(p =>p.name === newEntry.name)
-		// const checkIfExists = persons.filter(
-		// 	person => person.name === newEntry.name
-		// );
 		const personToUpdate = persons.find(p => p.name === newEntry.name);
 		console.log(personToUpdate);
 		if (persons.find(p => p.name === newEntry.name)) {
@@ -22,6 +23,9 @@ export default function Addperson({ persons, savePerson, setPersons }) {
 				personService
 					.update(id, newEntry)
 					.then(returnedPerson => {
+						setMessage(
+							`Person '${personToUpdate.name}' was successfully updated.`
+						);
 						setPersons(
 							persons.map(person =>
 								person.id !== id ? person : returnedPerson
@@ -29,27 +33,24 @@ export default function Addperson({ persons, savePerson, setPersons }) {
 						);
 					})
 					.catch(error => {
-						alert(
-							`The person ${personToUpdate.name} was already deleted from server`
+						setMessage(
+							`Error. Person '${personToUpdate.name}' was already removed from server`
 						);
 					});
+				setTimeout(() => {
+					setMessage("");
+				}, 5000);
 				setPersons(persons.filter(p => p.id !== id));
 			}
-
-			// if (checkIfExists.length !== 0) {
-			// alert(`${newEntry.name} is already in the phonebook.`);
 		} else {
 			personService.create(newEntry).then(returnedPerson => {
 				savePerson(returnedPerson);
+				setMessage(`Person '${newEntry.name}' was successfully added.`);
+				setTimeout(() => {
+					setMessage("");
+				}, 5000);
 			});
-			// personService.create(newEntry).then(response => {
-			// 	savePerson(newEntry);
 		}
-		// axios.post("http://localhost:3001/persons", newEntry).then(response => {
-		// 	savePerson(newEntry);
-
-		// savePerson(newEntry);
-
 		setNewEntry({ name: "", number: "" });
 	};
 
