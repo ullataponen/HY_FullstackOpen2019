@@ -10,7 +10,6 @@ const App = () => {
 		fetch("https://restcountries.eu/rest/v2/all")
 			.then(response => response.json())
 			.then(data => setCountries(data));
-		console.log(countries);
 	};
 
 	useEffect(fetchCountries, []);
@@ -24,7 +23,11 @@ const App = () => {
 			<label htmlFor="filter">Search for a country: </label>
 			<input name="filter" value={keyword} onChange={inputChanged} />
 			<ul>
-				<Countrylist countries={countries} keyword={keyword} />
+				<Countrylist
+					countries={countries}
+					setCountries={setCountries}
+					keyword={keyword}
+				/>
 			</ul>
 		</div>
 	);

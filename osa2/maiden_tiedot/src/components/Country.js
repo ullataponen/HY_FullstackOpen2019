@@ -20,11 +20,6 @@ const Country = ({ country }) => {
 	useEffect(fetchWeather, []);
 
 	return (
-		// { <div>
-		// 	<h1>{country.name}</h1>
-		// 	<p>Capital {country.capital}</p>
-		// 	<p>Population {country.population}</p>
-		// </div> }
 		<div>
 			<h1>{country.name}</h1>
 			<p>Capital {country.capital}</p>
@@ -35,7 +30,11 @@ const Country = ({ country }) => {
 					<li key={language.iso639_1}>{language.name}</li>
 				))}
 			</ul>
-			<img src={country.flag} alt="Country's flag" style={{ maxWidth: 200, marginTop: 20 }} />
+			<img
+				src={country.flag}
+				alt="Country's flag"
+				style={{ maxWidth: 200, marginTop: 20 }}
+			/>
 			<h2>Weather in {country.capital}</h2>
 			<p>Temperature: {temp} Celsius</p>
 			<img
